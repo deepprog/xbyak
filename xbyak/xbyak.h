@@ -769,11 +769,22 @@ public:
 
 inline void Operand::setBit(int bit)
 {
-	if (bit != 8 && bit != 16 && bit != 32 && bit != 64 && bit != 128 && bit != 256 && bit != 512 && bit != 8192) goto ERR;
+	switch (bit) {
+	case 8:
+	case 16:
+	case 32:
+	case 64:
+	case 128:
+	case 256:
+	case 512:
+	case 8192:
+		break;
+	default: goto ERR;
+	}
 	if (isBit(bit)) return;
 	if (is(MEM | OPMASK)) {
-		bit_ = bit;
-		return;
+			bit_ = bit;
+			return;
 	}
 	if (is(REG | XMM | YMM | ZMM | TMM)) {
 		int idx = getIdx();
