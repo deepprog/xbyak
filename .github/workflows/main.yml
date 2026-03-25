@@ -26,7 +26,8 @@ jobs:
         apt-get update
         apt-get install -y git cmake python3 g++ m4 build-essential wget
 
-        git clone https://github.com/intelxed/xed.git
+        git clone https://github.com/intelxed/xed.git xed
+        git clone https://github.com/intelxed/mbuild.git mbuild
         cd xed
         ./mfile.py --shared --prefix=$HOME/local
         ./mfile.py --install
