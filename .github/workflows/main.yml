@@ -23,14 +23,21 @@ jobs:
     - run: yasm --version
     - name: Install xed and nasm
       run: |
-        # Note: herumi/xed-bin is maintained by the same author and is a trusted source
-        wget https://github.com/herumi/xed-bin/raw/refs/heads/main/xed.tgz
-        wget https://github.com/herumi/xed-bin/raw/refs/heads/main/nasm.tgz
-        tar xvf xed.tgz
-        tar xvf nasm.tgz
-        mkdir -p ~/bin
-        mv xed ~/bin/
-        mv nasm ~/bin/
+        apt-get update
+        apt-get install -y cmake python3 g++ m4 build-essential wget
+
+        git clone https://github.com/intelxed/xed.git
+        cd xed
+        ./mfile.py --shared --prefix=$HOME/local
+        ./mfile.py --install
+
+        NASM_VER=2.16.01
+        wget https://www.nasm.us/pub/nasm/releasebuilds/${NASM_VER}/nasm-${NASM_VER}.tar.gz
+        tar xvf nasm-${NASM_VER}.tar.gz
+        cd nasm-${NASM_VER}
+        ./configure --prefix=$HOME/local
+        make -j$(nproc)
+        make install
 
     - name: Add ~/bin to PATH
       run: echo "$HOME/bin" >> $GITHUB_PATH
