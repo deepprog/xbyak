@@ -1671,6 +1671,7 @@ public:
 		base_ = 0;
 		labelId_ = 1;
 		stateList_.clear();
+		stateList_.reserve(3);
 		stateList_.push_back(SlabelState());
 		stateList_.push_back(SlabelState());
 		clabelDefList_.clear();
