@@ -23,9 +23,6 @@ jobs:
     - run: yasm --version
     - name: Install xed and nasm
       run: |
-        apt-get update
-        apt-get install -y cmake python3 g++ m4 build-essential wget
-
         git clone https://github.com/intelxed/xed.git
         cd xed
         ./mfile.py --shared --prefix=$HOME/local
